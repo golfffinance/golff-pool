@@ -647,7 +647,6 @@ contract GOFETHPool is GOFTokenWrapper, IRewardDistributionRecipient {
                 .add(rewards[account]);
     }
 
-    // stake visibility is public as overriding LPTokenWrapper's stake() function
     function stake(uint256 amount) public checkOpen updateReward(msg.sender) checkStart{ 
         require(amount > 0, "Golff-ETH-POOL: Cannot stake 0");
         super.stake(amount);
