@@ -648,13 +648,13 @@ contract GOFETHPool is GOFTokenWrapper, IRewardDistributionRecipient {
                 .add(rewards[account]);
     }
 
-    function stake(uint256 amount) public checkOpen updateReward(msg.sender) checkStart{ 
+    function stake(uint256 amount) public checkOpen checkStart updateReward(msg.sender){ 
         require(amount > 0, "Golff-ETH-POOL: Cannot stake 0");
         super.stake(amount);
         emit Staked(msg.sender, amount);
     }
 
-    function withdraw(uint256 amount) public updateReward(msg.sender) checkStart{
+    function withdraw(uint256 amount) public checkStart updateReward(msg.sender){
         require(amount > 0, "Golff-ETH-POOL: Cannot withdraw 0");
         super.withdraw(amount);
         emit Withdrawn(msg.sender, amount);
@@ -665,7 +665,7 @@ contract GOFETHPool is GOFTokenWrapper, IRewardDistributionRecipient {
         getReward();
     }
 
-    function getReward() public updateReward(msg.sender) checkStart{
+    function getReward() public checkStart updateReward(msg.sender){
         uint256 reward = earned(msg.sender);
         if (reward > 0) {
             rewards[msg.sender] = 0;
