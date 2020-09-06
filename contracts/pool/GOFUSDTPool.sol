@@ -684,11 +684,11 @@ contract GOFUSDTPool is GOFTokenWrapper, IRewardDistributionRecipient {
         _;
     }
 
-    function getPeriodFinish() public view returns (uint256) {
+    function getPeriodFinish() external view returns (uint256) {
         return periodFinish;
     }
 
-    function isOpen() public view returns (bool) {
+    function isOpen() external view returns (bool) {
         return open;
     }
 

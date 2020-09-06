@@ -684,11 +684,11 @@ contract GOFHTPool is GOFTokenWrapper, IRewardDistributionRecipient {
         _;
     }
 
-    function getPeriodFinish() public view returns (uint256) {
+    function getPeriodFinish() external view returns (uint256) {
         return periodFinish;
     }
 
-    function isOpen() public view returns (bool) {
+    function isOpen() external view returns (bool) {
         return open;
     }
 
@@ -721,7 +721,7 @@ contract GOFHTPool is GOFTokenWrapper, IRewardDistributionRecipient {
 
         gof.mint(address(this),reward);
         emit RewardAdded(reward);
-        
+
         // avoid overflow to lock assets
         _checkRewardRate();
     }

@@ -35,30 +35,30 @@ contract ERC20 is Context, IERC20 {
     function totalSupply() public view returns (uint) {
         return _totalSupply;
     }
-    function balanceOf(address account) public view returns (uint) {
+    function balanceOf(address account) external view returns (uint) {
         return _balances[account];
     }
-    function transfer(address recipient, uint amount) public returns (bool) {
+    function transfer(address recipient, uint amount) external returns (bool) {
         _transfer(_msgSender(), recipient, amount);
         return true;
     }
-    function allowance(address owner, address spender) public view returns (uint) {
+    function allowance(address owner, address spender) external view returns (uint) {
         return _allowances[owner][spender];
     }
-    function approve(address spender, uint amount) public returns (bool) {
+    function approve(address spender, uint amount) external returns (bool) {
         _approve(_msgSender(), spender, amount);
         return true;
     }
-    function transferFrom(address sender, address recipient, uint amount) public returns (bool) {
+    function transferFrom(address sender, address recipient, uint amount) external returns (bool) {
         _transfer(sender, recipient, amount);
         _approve(sender, _msgSender(), _allowances[sender][_msgSender()].sub(amount, "ERC20: transfer amount exceeds allowance"));
         return true;
     }
-    function increaseAllowance(address spender, uint addedValue) public returns (bool) {
+    function increaseAllowance(address spender, uint addedValue) external returns (bool) {
         _approve(_msgSender(), spender, _allowances[_msgSender()][spender].add(addedValue));
         return true;
     }
-    function decreaseAllowance(address spender, uint subtractedValue) public returns (bool) {
+    function decreaseAllowance(address spender, uint subtractedValue) external returns (bool) {
         _approve(_msgSender(), spender, _allowances[_msgSender()][spender].sub(subtractedValue, "ERC20: decreased allowance below zero"));
         return true;
     }
@@ -127,13 +127,13 @@ contract ERC20Detailed is IERC20 {
         _decimals = decimals;
         _cap = cap;
     }
-    function name() public view returns (string memory) {
+    function name() external view returns (string memory) {
         return _name;
     }
-    function symbol() public view returns (string memory) {
+    function symbol() external view returns (string memory) {
         return _symbol;
     }
-    function decimals() public view returns (uint8) {
+    function decimals() external view returns (uint8) {
         return _decimals;
     }
 
@@ -247,7 +247,7 @@ contract GOF is ERC20, ERC20Detailed {
 
     // Modifiers
     modifier onlyGov() {
-        require(msg.sender == governance, "Golff-Token: !governance");
+        require(msg.sender == governance, "Golff-Token: You are not the governance");
         _;
     }
 
@@ -260,8 +260,8 @@ contract GOF is ERC20, ERC20Detailed {
      * @param _account minter
      * @param _amount amount
      */
-    function mint(address _account, uint256 _amount) public {
-        require(minters[msg.sender], "Golff-Token: !minter");
+    function mint(address _account, uint256 _amount) external {
+        require(minters[msg.sender], "Golff-Token: You are not the minter");
         _mint(_account, _amount);
     }
     
@@ -269,7 +269,7 @@ contract GOF is ERC20, ERC20Detailed {
      * Add minter
      * @param _minter minter
      */
-    function addMinter(address _minter) public onlyGov {
+    function addMinter(address _minter) external onlyGov {
         minters[_minter] = true;
     }
     
@@ -277,7 +277,7 @@ contract GOF is ERC20, ERC20Detailed {
      * Remove minter
      * @param _minter minter
      */
-    function removeMinter(address _minter) public onlyGov {
+    function removeMinter(address _minter) external onlyGov {
         minters[_minter] = false;
     }
 
