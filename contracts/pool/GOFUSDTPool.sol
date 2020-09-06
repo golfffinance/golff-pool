@@ -599,6 +599,7 @@ contract GOFUSDTPool is GOFTokenWrapper, IRewardDistributionRecipient {
     uint256 public lastUpdateTime;
     uint256 public rewardPerTokenStored = 0;
     bool private open = true;
+    uint256 private constant _gunit = 1e18;
     mapping(address => uint256) public userRewardPerTokenPaid; 
     mapping(address => uint256) public rewards; // Unclaimed rewards
 
@@ -634,7 +635,7 @@ contract GOFUSDTPool is GOFTokenWrapper, IRewardDistributionRecipient {
                 lastTimeRewardApplicable()
                     .sub(lastUpdateTime)
                     .mul(rewardRate)
-                    .mul(1e18)
+                    .mul(_gunit)
                     .div(totalSupply())
             );
     }
@@ -643,7 +644,7 @@ contract GOFUSDTPool is GOFTokenWrapper, IRewardDistributionRecipient {
         return
             balanceOf(account)
                 .mul(rewardPerToken().sub(userRewardPerTokenPaid[account]))
-                .div(1e18)
+                .div(_gunit)
                 .add(rewards[account]);
     }
 
@@ -726,6 +727,6 @@ contract GOFUSDTPool is GOFTokenWrapper, IRewardDistributionRecipient {
     }
     
     function _checkRewardRate() internal view returns (uint256) {
-        return DURATION.mul(rewardRate).mul(1e18);
+        return DURATION.mul(rewardRate).mul(_gunit);
     }
 }
