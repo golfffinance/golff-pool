@@ -1,7 +1,7 @@
 
 // File: @openzeppelin/contracts/math/Math.sol
 
-pragma solidity ^0.5.0;
+pragma solidity 0.5.16;
 
 /**
  * @dev Standard math utilities missing in the Solidity language.
@@ -33,7 +33,7 @@ library Math {
 
 // File: @openzeppelin/contracts/math/SafeMath.sol
 
-pragma solidity ^0.5.0;
+pragma solidity 0.5.16;
 
 /**
  * @dev Wrappers over Solidity's arithmetic operations with added overflow
@@ -192,7 +192,7 @@ library SafeMath {
 
 // File: @openzeppelin/contracts/GSN/Context.sol
 
-pragma solidity ^0.5.0;
+pragma solidity 0.5.16;
 
 /*
  * @dev Provides information about the current execution context, including the
@@ -222,7 +222,7 @@ contract Context {
 
 // File: @openzeppelin/contracts/ownership/Ownable.sol
 
-pragma solidity ^0.5.0;
+pragma solidity 0.5.16;
 
 /**
  * @dev Contract module which provides a basic access control mechanism, where
@@ -300,7 +300,7 @@ contract Ownable is Context {
 
 // File: @openzeppelin/contracts/token/ERC20/IERC20.sol
 
-pragma solidity ^0.5.0;
+pragma solidity 0.5.16;
 
 /**
  * @dev Interface of the ERC20 standard as defined in the EIP. Does not include
@@ -451,7 +451,7 @@ library Address {
 
 // File: @openzeppelin/contracts/token/ERC20/SafeERC20.sol
 
-pragma solidity ^0.5.0;
+pragma solidity 0.5.16;
 
 
 
@@ -529,7 +529,7 @@ library SafeERC20 {
 /**
  * Reward Amount Interface
  */
-pragma solidity ^0.5.0;
+pragma solidity 0.5.16;
 
 contract IRewardDistributionRecipient is Ownable {
     address rewardDistribution;
@@ -552,7 +552,7 @@ contract IRewardDistributionRecipient is Ownable {
 /**
  * Staking Token Wrapper
  */
-pragma solidity ^0.5.0;
+pragma solidity 0.5.16;
 
 contract GOFTokenWrapper {
     using SafeMath for uint256;
@@ -587,7 +587,7 @@ contract GOFTokenWrapper {
 /**
  * Eth Pool
  */
-pragma solidity ^0.5.0;
+pragma solidity 0.5.16;
 
 contract GOFETHPool is GOFTokenWrapper, IRewardDistributionRecipient {
     IERC20 public gof = IERC20(0x9B101A705e19D291ce99d5e92d0a3aC1082c326f);

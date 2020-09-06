@@ -2,7 +2,7 @@
  *Submitted for verification at Etherscan.io on 2020-07-26
 */
 
-pragma solidity ^0.5.16;
+pragma solidity 0.5.16;
 
 interface IERC20 {
     function totalSupply() external view returns (uint);
@@ -229,7 +229,7 @@ library SafeERC20 {
 /**
  * Golff Token
  */
-pragma solidity ^0.5.0;
+pragma solidity 0.5.16;
 
 contract GOF is ERC20, ERC20Detailed {
     using SafeERC20 for IERC20;
