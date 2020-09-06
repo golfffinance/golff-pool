@@ -713,15 +713,14 @@ contract GOFETHPool is GOFTokenWrapper, IRewardDistributionRecipient {
                 rewardRate = reward.add(leftover).div(remaining);
             }
             lastUpdateTime = block.timestamp;
-            gof.mint(address(this),reward);
-            emit RewardAdded(reward);
         }else {
           rewardRate = reward.div(DURATION);
           periodFinish = startTime.add(DURATION);
           lastUpdateTime = startTime;
-          gof.mint(address(this),reward);
-          emit RewardAdded(reward);
         }
+
+        gof.mint(address(this),reward);
+        emit RewardAdded(reward);
 
         // avoid overflow to lock assets
         _checkRewardRate();
