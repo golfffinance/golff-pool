@@ -299,7 +299,7 @@ contract GOF is ERC20, ERC20Detailed {
      */
     function acceptGov()
         external {
-        require(msg.sender == pendingGov, "Golff-Token: !pending");
+        require(msg.sender == pendingGov, "Golff-Token: You are not the pending governance");
         address oldGov = governance;
         governance = pendingGov;
         pendingGov = address(0);
@@ -317,7 +317,7 @@ contract GOF is ERC20, ERC20Detailed {
         super._beforeTokenTransfer(from, to, amount);
 
         if (from == address(0)) { // When minting tokens
-            require(totalSupply().add(amount) <= cap(), "Golff-Token: Cap exceeded");
+            require(totalSupply().add(amount) <= cap(), "Golff-Token: Capacity exceeded");
         }
     }
 }
