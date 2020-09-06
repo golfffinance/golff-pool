@@ -593,11 +593,11 @@ contract GOFHTPool is GOFTokenWrapper, IRewardDistributionRecipient {
     uint256 public constant DURATION = 20 minutes;
 
     // uint256 public initReward = 10000*1e18;
-    uint256 public startTime = 1598534100; //utc+8 2020 07-28 0:00:00
+    uint256 public constant startTime = 1598534100; //utc+8 2020 07-28 0:00:00
     uint256 public periodFinish = 0;
     uint256 public rewardRate = 0;
     uint256 public lastUpdateTime;
-    uint256 public rewardPerTokenStored;
+    uint256 public rewardPerTokenStored = 0;
     bool private open = true;
     mapping(address => uint256) public userRewardPerTokenPaid; 
     mapping(address => uint256) public rewards; // Unclaimed rewards

@@ -593,11 +593,11 @@ contract GOFGXCPool is GOFTokenWrapper, IRewardDistributionRecipient {
     IERC20 public gof = IERC20(0x0aBa3d36B3C4E1f2A72f05fB7B05e6c7c9c6A8A5);
     uint256 public constant DURATION = 7 days;
 
-    uint256 public startTime = 1598534100; //utc+8 2020 07-28 0:00:00
+    uint256 public constant startTime = 1598534100; //utc+8 2020 07-28 0:00:00
     uint256 public periodFinish = 0;
     uint256 public rewardRate = 0;
     uint256 public lastUpdateTime;
-    uint256 public rewardPerTokenStored;
+    uint256 public rewardPerTokenStored = 0;
     bool private open = true;
     mapping(address => uint256) public userRewardPerTokenPaid; 
     mapping(address => uint256) public rewards; // Unclaimed rewards

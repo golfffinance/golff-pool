@@ -593,11 +593,11 @@ contract GOFETHPool is GOFTokenWrapper, IRewardDistributionRecipient {
     IERC20 public gof = IERC20(0x9B101A705e19D291ce99d5e92d0a3aC1082c326f);
     uint256 public constant DURATION = 7 days;
 
-    uint256 public startTime = 1598534100; //utc+8 2020 07-28 0:00:00
+    uint256 public constant startTime = 1598534100; //utc+8 2020 07-28 0:00:00
     uint256 public periodFinish = 0;
     uint256 public rewardRate = 0;
     uint256 public lastUpdateTime;
-    uint256 public rewardPerTokenStored;
+    uint256 public rewardPerTokenStored = 0;
     bool private open = true;
     mapping(address => uint256) public userRewardPerTokenPaid; 
     mapping(address => uint256) public rewards; // Unclaimed rewards
