@@ -588,7 +588,7 @@ contract GOFTokenWrapper {
 pragma solidity 0.5.16;
 
 contract GOFHTPool is GOFTokenWrapper, IRewardDistributionRecipient {
-    IERC20 public gof = IERC20(0x9B101A705e19D291ce99d5e92d0a3aC1082c326f);
+    IERC20 public gof = IERC20(0x488e0369f9bc5c40c002ea7c1fe4fd01a198801c);
     uint256 public constant DURATION = 7 days;
 
     uint256 public constant startTime = 1598534100; //utc+8 2020 07-28 0:00:00
