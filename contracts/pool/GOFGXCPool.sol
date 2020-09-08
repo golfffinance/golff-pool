@@ -555,9 +555,8 @@ contract GOFTokenWrapper {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
-    //IERC20 public stakeToken = IERC20(0x072A36b48be0ea066Fd587b8B5366D67Cdcdc2F4); // test
+    IERC20 public stakeToken = IERC20(0x2e93FE8d550a7B7E7b2e561cd45ceBccbAa79358);
     
-    IERC20 public stakeToken = IERC20(0xc97E1394Dae3582DE651aa38e62432f1f8aaf3d5); // test
     uint256 private _totalSupply;
     mapping(address => uint256) private _balances;
 
