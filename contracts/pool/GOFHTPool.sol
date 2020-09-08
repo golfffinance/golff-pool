@@ -556,7 +556,7 @@ contract GOFTokenWrapper {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
 
-    IERC20 public stakeToken = IERC20(0x6f259637dcd74c767781e37bc6133cd6a68aa161); 
+    IERC20 public stakeToken = IERC20(0x6f259637dcD74C767781E37Bc6133cd6A68aa161); 
 
     uint256 private _totalSupply;
     mapping(address => uint256) private _balances;
@@ -588,7 +588,7 @@ contract GOFTokenWrapper {
 pragma solidity 0.5.16;
 
 contract GOFHTPool is GOFTokenWrapper, IRewardDistributionRecipient {
-    IERC20 public gof = IERC20(0x488e0369f9bc5c40c002ea7c1fe4fd01a198801c);
+    IERC20 public gof = IERC20(0x488E0369f9BC5C40C002eA7c1fe4fd01A198801c);
     uint256 public constant DURATION = 7 days;
 
     uint256 public constant startTime = 1598534100; //utc+8 2020 07-28 0:00:00
