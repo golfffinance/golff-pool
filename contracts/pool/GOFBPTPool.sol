@@ -1,7 +1,7 @@
 
 // File: @openzeppelin/contracts/math/Math.sol
 
-pragma solidity ^0.5.0;
+pragma solidity 0.5.16;
 
 /**
  * @dev Standard math utilities missing in the Solidity language.
@@ -33,7 +33,7 @@ library Math {
 
 // File: @openzeppelin/contracts/math/SafeMath.sol
 
-pragma solidity ^0.5.0;
+pragma solidity 0.5.16;
 
 /**
  * @dev Wrappers over Solidity's arithmetic operations with added overflow
@@ -192,7 +192,7 @@ library SafeMath {
 
 // File: @openzeppelin/contracts/GSN/Context.sol
 
-pragma solidity ^0.5.0;
+pragma solidity 0.5.16;
 
 /*
  * @dev Provides information about the current execution context, including the
@@ -222,7 +222,7 @@ contract Context {
 
 // File: @openzeppelin/contracts/ownership/Ownable.sol
 
-pragma solidity ^0.5.0;
+pragma solidity 0.5.16;
 
 /**
  * @dev Contract module which provides a basic access control mechanism, where
@@ -300,7 +300,7 @@ contract Ownable is Context {
 
 // File: @openzeppelin/contracts/token/ERC20/IERC20.sol
 
-pragma solidity ^0.5.0;
+pragma solidity 0.5.16;
 
 /**
  * @dev Interface of the ERC20 standard as defined in the EIP. Does not include
@@ -380,7 +380,7 @@ interface IERC20 {
 
 // File: @openzeppelin/contracts/utils/Address.sol
 
-pragma solidity ^0.5.5;
+pragma solidity 0.5.16;
 
 /**
  * @dev Collection of functions related to the address type
@@ -451,7 +451,10 @@ library Address {
 
 // File: @openzeppelin/contracts/token/ERC20/SafeERC20.sol
 
-pragma solidity ^0.5.0;
+pragma solidity 0.5.16;
+
+
+
 
 /**
  * @title SafeERC20
@@ -526,7 +529,7 @@ library SafeERC20 {
 /**
  * Reward Amount Interface
  */
-pragma solidity ^0.5.0;
+pragma solidity 0.5.16;
 
 contract IRewardDistributionRecipient is Ownable {
     address rewardDistribution;
@@ -546,16 +549,17 @@ contract IRewardDistributionRecipient is Ownable {
     }
 }
 
- /**
-  * Staking Token Wrapper
-  */
-pragma solidity ^0.5.0;
+/**
+ * Staking Token Wrapper
+ */
+pragma solidity 0.5.16;
 
 contract GOFTokenWrapper {
     using SafeMath for uint256;
     using SafeERC20 for IERC20;
-    
+
     IERC20 public stakeToken = IERC20(0x417F2c87F72236eec4ebeE1Ef9240024595Df4D7);
+
     uint256 private _totalSupply;
     mapping(address => uint256) private _balances;
 
@@ -583,19 +587,19 @@ contract GOFTokenWrapper {
 /**
  * BPT Pool
  */
-pragma solidity ^0.5.0;
+pragma solidity 0.5.16;
 
 contract GOFBPTPool is GOFTokenWrapper, IRewardDistributionRecipient {
-
     IERC20 public gof = IERC20(0x488E0369f9BC5C40C002eA7c1fe4fd01A198801c);
     uint256 public constant DURATION = 7 days;
 
-    uint256 public startTime = 1600257600; //utc+8 
+    uint256 public constant startTime = 1600257600; //utc+8 2020-09-16 20:00:00
     uint256 public periodFinish = 0;
     uint256 public rewardRate = 0;
     uint256 public lastUpdateTime;
-    uint256 public rewardPerTokenStored;
+    uint256 public rewardPerTokenStored = 0;
     bool private open = true;
+    uint256 private constant _gunit = 1e18;
     mapping(address => uint256) public userRewardPerTokenPaid; 
     mapping(address => uint256) public rewards; // Unclaimed rewards
 
@@ -631,7 +635,7 @@ contract GOFBPTPool is GOFTokenWrapper, IRewardDistributionRecipient {
                 lastTimeRewardApplicable()
                     .sub(lastUpdateTime)
                     .mul(rewardRate)
-                    .mul(1e18)
+                    .mul(_gunit)
                     .div(totalSupply())
             );
     }
@@ -640,18 +644,17 @@ contract GOFBPTPool is GOFTokenWrapper, IRewardDistributionRecipient {
         return
             balanceOf(account)
                 .mul(rewardPerToken().sub(userRewardPerTokenPaid[account]))
-                .div(1e18)
+                .div(_gunit)
                 .add(rewards[account]);
     }
 
-    // stake visibility is public as overriding LPTokenWrapper's stake() function
-    function stake(uint256 amount) public checkOpen updateReward(msg.sender) checkStart{ 
+    function stake(uint256 amount) public checkOpen checkStart updateReward(msg.sender){ 
         require(amount > 0, "Golff-BPT-POOL: Cannot stake 0");
         super.stake(amount);
         emit Staked(msg.sender, amount);
     }
 
-    function withdraw(uint256 amount) public updateReward(msg.sender) checkStart{
+    function withdraw(uint256 amount) public checkStart updateReward(msg.sender){
         require(amount > 0, "Golff-BPT-POOL: Cannot withdraw 0");
         super.withdraw(amount);
         emit Withdrawn(msg.sender, amount);
@@ -662,7 +665,7 @@ contract GOFBPTPool is GOFTokenWrapper, IRewardDistributionRecipient {
         getReward();
     }
 
-    function getReward() public updateReward(msg.sender) checkStart{
+    function getReward() public checkStart updateReward(msg.sender){
         uint256 reward = earned(msg.sender);
         if (reward > 0) {
             rewards[msg.sender] = 0;
@@ -672,7 +675,7 @@ contract GOFBPTPool is GOFTokenWrapper, IRewardDistributionRecipient {
     }
 
     modifier checkStart(){
-        require(block.timestamp > startTime,"Golff-BPT-POOL: Not start");
+        require(block.timestamp > startTime,"Golff-BPT-POOL: not start");
         _;
     }
 
@@ -681,11 +684,11 @@ contract GOFBPTPool is GOFTokenWrapper, IRewardDistributionRecipient {
         _;
     }
 
-    function getPeriodFinish() public view returns (uint256) {
+    function getPeriodFinish() external view returns (uint256) {
         return periodFinish;
     }
 
-    function isOpen() public view returns (bool) {
+    function isOpen() external view returns (bool) {
         return open;
     }
 
@@ -698,7 +701,7 @@ contract GOFBPTPool is GOFTokenWrapper, IRewardDistributionRecipient {
         external
         onlyRewardDistribution
         checkOpen
-        updateReward(address(0)){
+        updateReward(address(0)) {
         if (block.timestamp > startTime){
             if (block.timestamp >= periodFinish) {
                 uint256 period = block.timestamp.sub(startTime).div(DURATION).add(1);
@@ -710,20 +713,20 @@ contract GOFBPTPool is GOFTokenWrapper, IRewardDistributionRecipient {
                 rewardRate = reward.add(leftover).div(remaining);
             }
             lastUpdateTime = block.timestamp;
-            gof.mint(address(this),reward);
-            emit RewardAdded(reward);
         }else {
           rewardRate = reward.div(DURATION);
           periodFinish = startTime.add(DURATION);
           lastUpdateTime = startTime;
-          gof.mint(address(this),reward);
-          emit RewardAdded(reward);
         }
+
+        gof.mint(address(this),reward);
+        emit RewardAdded(reward);
+
         // avoid overflow to lock assets
         _checkRewardRate();
     }
     
     function _checkRewardRate() internal view returns (uint256) {
-        return DURATION.mul(rewardRate).mul(1e18);
+        return DURATION.mul(rewardRate).mul(_gunit);
     }
 }
