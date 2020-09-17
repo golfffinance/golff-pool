@@ -666,7 +666,7 @@ contract QuotaDistribution is IQuotaDistribution {
         uint256 finishedQuota; //finished quota
         uint256 remainQuota; // remain quota
     }
-    uint256 public startTime = 1600318800; //utc+8 2020-09-17 13:00:00 unfrozen start time
+    uint256 public startTime = 1600344000; //utc+8 2020-09-17 20:00:00 unfrozen start time
     uint256 public unfrozenDays = 174; // frozen days
     uint256 public constant DURATION = 84600; 
     uint256 lastDistributeTime;

@@ -23,11 +23,11 @@ async function deployQuotaDistribution(deployer, network, accounts) {
 
   // if(network == "mainnet"){
     let disribution_account = accounts[0];
-    let gas_price = 125000000000;
+    let gas_price = 545000000000;
 
     console.log("[Golff] 1.Start deploy QuotaDistribution on Network= " + network);
 
-    await deployer.deploy(QuotaDistribution,1600318800, 174);
+    await deployer.deploy(QuotaDistribution,1600344000, 174);
    
     console.log("[Golff] 2.Start add minter acl for distribution");
 
