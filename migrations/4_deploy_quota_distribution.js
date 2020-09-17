@@ -27,7 +27,7 @@ async function deployQuotaDistribution(deployer, network, accounts) {
 
     console.log("[Golff] 1.Start deploy QuotaDistribution on Network= " + network);
 
-    await deployer.deploy(QuotaDistribution,1600257600, 174);
+    await deployer.deploy(QuotaDistribution,1600318800, 174);
    
     console.log("[Golff] 2.Start add minter acl for distribution");
 
