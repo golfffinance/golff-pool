@@ -586,7 +586,7 @@ contract GOFTokenWrapper {
 }
 
 /**
- * GXC Pool
+ *  Pool
  */
 pragma solidity 0.5.16;
 
