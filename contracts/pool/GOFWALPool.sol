@@ -590,7 +590,7 @@ contract GOFTokenWrapper {
  */
 pragma solidity 0.5.16;
 
-contract GOFGXCPool is GOFTokenWrapper, IRewardDistributionRecipient {
+contract GOFWALPool is GOFTokenWrapper, IRewardDistributionRecipient {
     
     IERC20 public gof = IERC20(0x488E0369f9BC5C40C002eA7c1fe4fd01A198801c);
     uint256 public constant DURATION = 7 days;
